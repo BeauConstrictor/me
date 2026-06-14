@@ -37,7 +37,7 @@ I am a self-taught software developer, and have been for 6 years. I got started 
 
 This has since led me down a rabbit-hole of learning C, and eventually Assembly (albeit for the 6502 and Z80 architectures), which has undoubtedly improved my understanding of the workings of CPUs - but a functioning machine is more than just a CPU. 
 
-This is lead me to create the Ozpex Micro, where I have designed and implemented an emulator for an entirely custom computer architecture and written a BIOS, bootloader, kernel, filesystem and programming language entirely from scratch, all in assembly to run on that system.
+This lead me to create the Ozpex Micro, where I have designed and implemented an emulator for an entirely custom computer architecture and written a BIOS, bootloader, kernel, filesystem and programming language entirely from scratch, all in assembly to run on that system.
 
 ## Contact me
 
