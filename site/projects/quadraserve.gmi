@@ -23,7 +23,7 @@ Quadraserve is primarily a static web server that serves files from a directory,
 
 ## Modules
 
-Quadraserve's interactivity comes from a system of 'modules', which behave like API endpoints that send and receive strings of text (both optional). Pages can have buttons and forms of sorts in the form of links to modules, which are automatically recognised and prompt the user for input before calling the endpoint and displaying the result. If you're familiar with CGI scripts, modules aren't to different.
+Quadraserve's interactivity comes from a system of 'modules', which behave like API endpoints that send and receive strings of text (both optional). Pages can have buttons and forms of sorts in the form of links to modules, which are automatically recognised and prompt the user for input before calling the endpoint and displaying the result. If you're familiar with CGI scripts, modules aren't too different.
 
 => https://en.wikipedia.org/wiki/Common_Gateway_Interface CGI on Wikipedia
 
@@ -36,7 +36,7 @@ Modules can be used for a variety of simple systems, all in-keeping with the sma
 
 ## Implementation
 
-Quadraserve is implemented in Nim, a fast compiled language with Python-like syntax. Nim is my go-to language for more complex software or programs involving networking (networking in C is a huge headache).
+Quadraserve is implemented in Nim, a fast, compiled language with Python-like syntax. Nim is my go-to language for more complex software or programs involving networking (networking in C is a huge headache).
 
 => https://nim-lang.org The Nim programming language
 
