@@ -4,7 +4,7 @@ CHEF := ./chef
 VARS :=
 
 VARS += -d NAME beauconstrictor
-VARS += -d EMAIL foil-ivory-glutton@duck.com
+VARS += -d EMAIL beauconstrictor@tilde.team
 
 .PHONY: all
 all:
