@@ -1,6 +1,6 @@
 # OS/Micro
 
-OS/Micro is an exokernel-style DOS and for the Ozpex Micro computer architecture.
+S/Micro is an exokernel-style DOS for the Ozpex Micro computer architecture.
 
 ```
                           _______
@@ -25,7 +25,7 @@ jgs `""""""""""""""""`    '========'
 
 OS/Micro has a unique architecture that heavily leans on the extensibility and discoverability of the Ozpex Micro itself. This allows the concept of drivers and standard system calls to be completely omitted, in favour of programs simply statically linking all the runtime support they will need.
 
-Because of this, the OS will not run on any old computer, but Ozpex Micro-compatible computers specifically. This is a computer architecture that I personally created, inspired by the IBM PC de-facto standard, and the CP/M operating system. Where the Ozpex Micro stands out is in its simplicity, making development a breeze despite being forced to do so in Z80 assembly.
+Because of this, the OS will not run on any old computer, but Ozpex Micro-compatible computers specifically. This is a computer architecture that I created, inspired by the IBM PC de-facto standard, and the CP/M operating system. Where the Ozpex Micro stands out is in its simplicity, making development a breeze despite being forced to do so in Z80 assembly.
 
 => /projects/ozpex-micro.gmi See my dedicated page for the Ozpex Micro if you are curious, or want to set one up to try out this OS.
 => https://github.com/beauconstrictor/os-micro Check out the Github repository for this project if you want to try it out.
@@ -40,7 +40,7 @@ I started OS/M (and the entirety of the Ozpex Micro) after discovering the Forth
 * Custom filesystem - OS/M uses a custom designed flat filesystem known as FS/128 that fits perfectly on Ozpex Micro disks and is incredibly simple and fast.
 * Simplicity - A single person can easily understand the entire OS stack, making OS/M a great learning tool if you want to read open source code.
 
-## Exokernel
+## On the term 'exokernel'
 
 OS/M is implemented as an 'exokernel', a kernel that minimises hardware abstraction, as the Ozpex Micro's device model usually includes all the abstraction necessary for portable programs. This keeps the implementation simple and makes it easy to cross-compile programs for the OS without special tooling (as there is no executable format, per-se) as long as the required libraries are present.
 

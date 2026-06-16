@@ -14,7 +14,7 @@ Quadraserve supports:
 
 * HTTP(S) - The classic and by far most common protocol
 * Gemini  - A modern, aggressively minimalist alt-web protocol
-* Gohper  - An old competitor of HTTP from back in the day
+* Gopher  - An old competitor of HTTP from back in the day
 * Finger  - Because Quadraserve sounded better than Triserve
 
 Quadraserve is primarily a static web server that serves files from a directory, much like Python's 'http.server'. However, you do have access to more interactive functionality, available from all 4 protocols (a major challenge in it's own right - I'm looking at you, Finger) through a system akin to CGI.
