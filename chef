@@ -16,20 +16,23 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument("gemtext")
     parser.add_argument("-o", "--outfile", required=True)
+    parser.add_argument("-f", "--format", required=True)
     parser.add_argument("-t", "--template", default="template.html")
     parser.add_argument("-d", "--define", nargs=2, action="append")
+    parser.add_argument("-w", "--wrap", default=70, type=int)
 
     return parser.parse_args()
 
-def tohtml(gem: TextIO) -> (str, str):
+def wrap(s: str, w: int) -> list[str]:
+    return [s[i:i+w] for i in range(0, len(s), w)]
+
+def tohtml(gem: str) -> (str, str):
     preformatted = False
     in_list = False
     html_parts = []
     title = None
 
-    for raw_line in gem:
-        l = raw_line.rstrip("\n")
-
+    for l in gem.split("\n"):
         if l.startswith("```") and not preformatted:
             preformatted = True
             if in_list:
@@ -64,12 +67,16 @@ def tohtml(gem: TextIO) -> (str, str):
         elif l.startswith("# "):
             if title == None: title = l[2:]
             html_parts.append(f"<h1>{l[2:]}</h1>")
+
         elif l.startswith("=> "):
             parts = l[3:].split(" ")
             if len(parts) == 0: continue
             url = parts[0]
+            if not "://" in url and url.endswith(".gmi"):
+                url = url[:-4] + ".html"
             text = " ".join(parts[1:]) if len(parts) > 1 else url
             html_parts.append(f"<a href=\"{url}\">{text}</a>")
+
         elif l.strip() == "":
             continue
         else:
@@ -80,20 +87,94 @@ def tohtml(gem: TextIO) -> (str, str):
 
     return "".join(html_parts), title or "Untitled"
 
+def add_heading(output: list[str], l: str, border: str, prefix: str, width: int) -> None:
+    lines = wrap(l[len(prefix):], width)
+    llen  = max([len(i) for i in lines])
+    output.append("i" + border * llen)
+    for line in lines:
+        output.append("i" + line)
+    output.append("i" + border * llen)
+
+def add_gopher_link(output: list[str], l: str) -> None:
+    parts = l[3:].split(" ")
+    if len(parts) == 0: return
+    url  = parts[0]
+    name = " ".join(parts[1:])
+
+    if url.startswith("https://") or url.startswith("mailto:"):
+        output.append(f"9{name}\t{url}\t_\t_")
+    elif url.endswith(".gmi"):
+        selector = url[:-4]
+        output.append(f"1{name}\t{selector}")
+    # TODO: support .txt files
+    else:
+        output.append(f"9{name}\t{url}")
+
+def format_html(source: str, args: args.Namespace) -> str:
+    with open(args.template, "r", encoding="utf-8") as f:
+        output = f.read()
+
+    content, title = tohtml(source)
+    output = output.replace("$(TITLE)", title)
+    output = output.replace("$(CONTENT)", content)
+    return output
+
+def format_gemtext(source: str, args: argparse.Namespace) -> str:
+    return source
+
+def format_gopher(source: str, args: argparse.Namespace) -> str:
+    output = []
+
+    for l in source.split("\n"):
+        preformatted = False
+        if l.startswith("```"):
+            preformatted = not preformatted
+            continue
+        if preformatted:
+            continue
+
+        if l.startswith("# "):
+            add_heading(output, l, "#", "# ", args.wrap)
+        elif l.startswith("## "):
+            add_heading(output, l, "=", "## ", args.wrap)
+        elif l.startswith("###"):
+            add_heading(output, l, "-", "### ", args.wrap)
+
+        elif l.startswith("=> "):
+            add_gopher_link(output, l)
+
+        elif l == "":
+            output.append("i")
+        else:
+            lines = wrap(l, args.wrap)
+            for line in lines:
+                output.append("i" + line)
+
+    return "\n".join(output) + "\n"
+
 def main() -> None:
     args = parse_args()
 
-    with open(args.template, "r", encoding="utf-8") as f:
-        template = f.read()
+    with open(args.gemtext, "r", encoding="utf-8") as gem:
+        source = gem.read()
 
-    with open(args.gemtext, "r", encoding="utf-8") as gem, \
-         open(args.outfile, "w", encoding="utf-8") as out:
-        content, title = tohtml(gem)
-        output = template
-        output = output.replace("$(CONTENT)", content)
-        output = output.replace("$(TITLE)",   title)
-        for k,v in args.define:
-            output = output.replace(f"$({k})", v)
+    for k,v in args.define:
+        source = source.replace(f"$({k})", v)
+
+    output = ""
+    match args.format:
+        case "html":   output = format_html  (source, args)
+        case "gemini": output = format_gemini(source, args)
+        case "gophermap": output = format_gopher(source, args)
+
+    outfile = args.outfile
+    if args.format == "gophermap":
+        path = Path(outfile)
+        if path.name == "index":
+            path.rename(path.with_name("gophermap"))
+            outfile = str(path)
+
+    with open(args.outfile, "w", encoding="utf-8") as out:
         out.write(output)
 
 if __name__ == "__main__":

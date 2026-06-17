@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import shutil
+import subprocess
+
+IN_DIR = Path("site")
+OUT_DIR = Path("build")
+
+CHEF = "./chef"
+
+VARS = [
+    "-d", "NAME", "beauconstrictor",
+    "-d", "EMAIL", "beauconstrictor@tilde.team",
+]
+
+def run_chef(fmt: str, out: Path, src: Path):
+    out.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(
+        [CHEF, *VARS, "-f", fmt, "-o", str(out), str(src)],
+        check=True
+    )
+
+
+def main():
+    if OUT_DIR.exists():
+        shutil.rmtree(OUT_DIR)
+
+    for path in IN_DIR.rglob("*"):
+        rel = path.relative_to(IN_DIR)
+
+        if path.is_dir():
+            (OUT_DIR / "html" / rel).mkdir(parents=True, exist_ok=True)
+            (OUT_DIR / "gemini" / rel).mkdir(parents=True, exist_ok=True)
+            (OUT_DIR / "gopher" / rel).mkdir(parents=True, exist_ok=True)
+            continue
+
+        # Compute output paths
+        out_rel = rel.as_posix()
+
+        # .gmi to .html
+        html_rel = out_rel
+        if html_rel.endswith(".gmi"):
+            html_rel = html_rel[:-4] + ".html"
+
+        # .gmi to 
+        gopher_rel = out_rel
+        if gopher_rel.endswith(".gmi"):
+            gopher_rel = gopher_rel[:-4]
+
+        html_out = OUT_DIR / "html" / html_rel
+        gem_out = OUT_DIR / "gemini" / out_rel
+        gopher_out = OUT_DIR / "gopher" / gopher_rel
+
+        print(f"{path} -> {html_rel}")
+
+        run_chef("html", html_out, path)
+        run_chef("gemtext", gem_out, path)
+        run_chef("gophermap", gopher_out, path)
+
+
+if __name__ == "__main__":
+    main()
