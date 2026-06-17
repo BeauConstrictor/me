@@ -110,7 +110,7 @@ def add_gopher_link(output: list[str], l: str) -> None:
     else:
         output.append(f"9{name}\t{url}")
 
-def format_html(source: str, args: args.Namespace) -> str:
+def format_html(source: str, args: argparse.Namespace) -> str:
     with open(args.template, "r", encoding="utf-8") as f:
         output = f.read()
 
