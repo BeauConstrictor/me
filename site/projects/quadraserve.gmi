@@ -44,4 +44,4 @@ Each protocol handler compiles down to a separate binary which are all staticall
 
 Gemini is the most first-class protocol, as pages are written in Gemtext, the protocol's markup language. The module system also naturally translate to Gemini's special response codes that request the client for user input.
 
-For other protocols, the Gemtext source is translated on-the-fly to the protocol's most appropriate format and then the response is sent. For Gopher and Finger, the source is more-or-less downgraded to plaintext. For HTTP, the source is converted to HTML and inserted into a page template, which you can design yourself. A template is also provided that resembles the page your own right now!
+For other protocols, the Gemtext source is translated on-the-fly to the protocol's most appropriate format and then the response is sent. For Gopher and Finger, the source is more-or-less downgraded to plaintext. For HTTP, the source is converted to HTML and inserted into a page template, which you can design yourself. A template is also provided that resembles the page you're on right now!
