@@ -20,7 +20,7 @@ def run_chef(fmt: str, out: Path, src: Path):
         check=True
     )
 
-gophermap_msg = "!Welcome\nWelcome to my site!\n\t1\tindex\tGo to the index"
+gophermap_msg = "!Welcome to my site!\n1\tindex\tGo to the index"
 
 def main():
     if OUT_DIR.exists():
