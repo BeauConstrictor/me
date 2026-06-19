@@ -32,7 +32,7 @@ These are some of the larger projects that I have worked on recently. You can fi
 
 => https://github.com/beauconstrictor My Github profile
 
-## My skills
+## About me
 
 I am a self-taught software developer, and have been for 6 years. I got started in the space as most do, by learning Python. I still occasionally use Python as it is indeed an excellent language for quick scripting. However, in the time since I began programming, I have become increasingly curious about how exactly my computer executes the code I write.
 
