@@ -40,7 +40,7 @@ def wrap(s: str, w: int) -> list[str]:
     if line:
         lines.append(line)
 
-    return lines
+   return lines
 
 def tohtml(gem: str) -> (str, str):
     preformatted = False
@@ -154,6 +154,7 @@ def format_gopher(source: str, args: argparse.Namespace, gophernicus: bool) -> s
             preformatted = not preformatted
             continue
         if preformatted:
+            output.append(text_mode + l)
             continue
 
         if l.startswith("# "):
