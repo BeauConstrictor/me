@@ -102,13 +102,14 @@ def tohtml(gem: str) -> (str, str):
 
     return "".join(html_parts), title or "Untitled"
 
-def add_heading(output: list[str], l: str, border: str, prefix: str, width: int) -> None:
+def add_heading(output: list[str], l: str, border: str, prefix: str, width: int, gophernicus: bool) -> None:
     lines = wrap(l[len(prefix):], width)
     llen  = max([len(i) for i in lines])
-    output.append("i" + border * llen)
+    text_mode = "" if gophernicus else ""
+    output.append(text_mode + border * llen)
     for line in lines:
-        output.append("i" + line)
-    output.append("i" + border * llen)
+        output.append(text_mode + line)
+    output.append(text_mode + border * llen)
 
 def add_gopher_link(output: list[str], l: str, width: int) -> None:
     parts = l[3:].split(" ")
@@ -140,8 +141,11 @@ def format_html(source: str, args: argparse.Namespace) -> str:
 def format_gemtext(source: str, args: argparse.Namespace) -> str:
     return source
 
-def format_gopher(source: str, args: argparse.Namespace) -> str:
+def format_gopher(source: str, args: argparse.Namespace, gophernicus: bool) -> str:
     output = []
+
+    text_mode = "" if gophernicus else "i"
+    title = None
 
     for l in source.split("\n"):
         preformatted = False
@@ -152,21 +156,24 @@ def format_gopher(source: str, args: argparse.Namespace) -> str:
             continue
 
         if l.startswith("# "):
-            add_heading(output, l, "#", "# ", args.wrap)
+            if title == None: title = l[2:]
+            add_heading(output, l, "=", "# ", args.wrap, gophernicus)
         elif l.startswith("## "):
-            add_heading(output, l, "=", "## ", args.wrap)
+            add_heading(output, l, "-", "## ", args.wrap, gophernicus)
         elif l.startswith("###"):
-            add_heading(output, l, "-", "### ", args.wrap)
+            add_heading(output, l, ".", "### ", args.wrap, gophernicus)
 
         elif l.startswith("=> "):
             add_gopher_link(output, l, args.wrap)
 
         elif l == "":
-            output.append("i")
+            output.append(text_mode)
         else:
             lines = wrap(l, args.wrap)
             for line in lines:
-                output.append("i" + line)
+                output.append(text_mode + line)
+
+    output = ["!" + title or "Untitled"] + output
 
     return "\n".join(output) + "\n"
 
@@ -178,9 +185,13 @@ def main() -> None:
 
     output = ""
     match args.format:
-        case "html":   output      = format_html  (source, args)
-        case "gemini": output      = format_gemini(source, args)
-        case "gophermap": output   = format_gopher(source, args)
+        case "html":   output = format_html  (source, args)
+        case "gemini": output = format_gemini(source, args)
+        case "gophermap":
+            if args.gophernicus and Path(args.outfile).name == "index":
+                output = format_gopher(source, args, True)
+            else:
+                output = format_gopher(source, args, False)
 
     for k,v in args.define:
         output = output.replace(f"$({k})", v)
