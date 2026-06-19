@@ -28,7 +28,7 @@ def main():
 
     (OUT_DIR / "gopher").mkdir(parents=True, exist_ok=True)
     with open(str(OUT_DIR / "gopher" / "gophermap"), "w") as f:
-        f.write(gopermap_msg)
+        f.write(gophermap_msg)
 
     for path in IN_DIR.rglob("*"):
         rel = path.relative_to(IN_DIR)
@@ -38,7 +38,7 @@ def main():
             (OUT_DIR / "gemini" / rel).mkdir(parents=True, exist_ok=True)
             (OUT_DIR / "gopher" / rel).mkdir(parents=True, exist_ok=True)
             with open(str(OUT_DIR / "gopher" / rel / "gophermap"), "w") as f:
-                f.write(gopermap_msg)
+                f.write(gophermap_msg)
             continue
 
         # Compute output paths
