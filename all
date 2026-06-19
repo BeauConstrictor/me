@@ -16,7 +16,7 @@ VARS = [
 def run_chef(fmt: str, out: Path, src: Path):
     out.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
-        [CHEF, *VARS, "-f", fmt, "-o", str(out), str(src)],
+        [CHEF, *VARS, "-g", "-f", fmt, "-o", str(out), str(src)],
         check=True
     )
 

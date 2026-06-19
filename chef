@@ -21,6 +21,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("-t", "--template", default="template.html")
     parser.add_argument("-d", "--define", nargs=2, action="append")
     parser.add_argument("-w", "--wrap", default=80, type=int)
+    parser.add_argument("-g", "--gophernicus", action="store_true")
 
     return parser.parse_args()
 
@@ -177,18 +178,19 @@ def main() -> None:
 
     output = ""
     match args.format:
-        case "html":   output    = format_html  (source, args)
-        case "gemini": output    = format_gemini(source, args)
-        case "gophermap": output = format_gopher(source, args)
+        case "html":   output      = format_html  (source, args)
+        case "gemini": output      = format_gemini(source, args)
+        case "gophermap": output   = format_gopher(source, args)
 
     for k,v in args.define:
         output = output.replace(f"$({k})", v)
 
     outfile = args.outfile
-    if args.format == "gophermap":
+    if args.format == "gophermap" and args.gophernicus:
         path = Path(outfile)
         if path.name == "index":
             outfile = str(path.with_name("gophermap"))
+            output = "\n".join(["\t" + l for l in output.split("\n")])
 
     with open(outfile, "w", encoding="utf-8") as out:
         out.write(output)
