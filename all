@@ -26,6 +26,7 @@ def main():
     if OUT_DIR.exists():
         shutil.rmtree(OUT_DIR)
 
+    (OUT_DIR / "gopher").mkdir(parents=True, exist_ok=True)
     with open(str(OUT_DIR / "gopher" / "gophermap"), "w") as f:
         f.write(gopermap_msg)
 
