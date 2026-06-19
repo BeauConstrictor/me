@@ -161,8 +161,8 @@ def main() -> None:
 
     output = ""
     match args.format:
-        case "html":   output = format_html  (source, args)
-        case "gemini": output = format_gemini(source, args)
+        case "html":   output    = format_html  (source, args)
+        case "gemini": output    = format_gemini(source, args)
         case "gophermap": output = format_gopher(source, args)
 
     for k,v in args.define:
@@ -174,7 +174,7 @@ def main() -> None:
         if path.name == "index":
             outfile = str(path.with_name("gophermap"))
 
-    with open(args.outfile, "w", encoding="utf-8") as out:
+    with open(outfile, "w", encoding="utf-8") as out:
         out.write(output)
 
 if __name__ == "__main__":
