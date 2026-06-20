@@ -13,10 +13,12 @@ VARS = [
     "-d", "EMAIL", "beauconstrictor@tilde.team",
 ]
 
+HOSTNAME = "tilde.team"
+
 def run_chef(fmt: str, out: Path, src: Path):
     out.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
-        [CHEF, *VARS, "-f", fmt, "-o", str(out), str(src)],
+        [CHEF, *VARS, "-H", HOSTNAME, "-f", fmt, "-o", str(out), str(src)],
         check=True
     )
 

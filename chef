@@ -22,6 +22,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("-t", "--template", default="template.html")
     parser.add_argument("-d", "--define", nargs=2, action="append")
     parser.add_argument("-w", "--wrap", default=80, type=int)
+    parser.add_argument("-H", "--hostname", required=True)
 
     return parser.parse_args()
 
@@ -111,7 +112,7 @@ def add_heading(output: list[str], l: str, border: str, prefix: str, width: int)
         output.append("i" + line)
     output.append("i" + border * llen)
 
-def add_gopher_link(output: list[str], l: str, width: int) -> None:
+def add_gopher_link(output: list[str], l: str, width: int, hostname: str) -> None:
     parts = l[3:].split(" ")
     if len(parts) == 0: return
     url  = parts[0]
@@ -123,14 +124,18 @@ def add_gopher_link(output: list[str], l: str, width: int) -> None:
             s = f"h{name_l}\t{parsed.path}\t{parsed.hostname}"
             if parsed.port: s += f"\t{parsed.port}"
             output.append(s)
+    elif url.startswith("gopher://"):
+        output.append("iTODO: implement gopher links from gopher")
+    elif url.startswith("gemini://"):
+        output.append("iTODO: implement gemini links from gopher")
     elif url.endswith(".gmi"):
         selector = url[:-4]
         for name_l in name:
-            output.append(f"1{name_l}\t{selector}")
+            output.append(f"1{name_l}\t{selector}\t{hostname}\t70")
     # TODO: support .txt files
     else:
         for name_l in name:
-            output.append(f"9{name_l}\t{url}")
+            output.append(f"9{name_l}\t{url}\t{hostname}\t70")
 
 def format_html(source: str, args: argparse.Namespace) -> str:
     with open(args.template, "r", encoding="utf-8") as f:
@@ -165,7 +170,7 @@ def format_gopher(source: str, args: argparse.Namespace) -> str:
             add_heading(output, l, ".", "### ", args.wrap)
 
         elif l.startswith("=> "):
-            add_gopher_link(output, l, args.wrap)
+            add_gopher_link(output, l, args.wrap, args.hostname)
 
         elif l == "":
             output.append("i")
