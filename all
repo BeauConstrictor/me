@@ -11,7 +11,7 @@ CHEF = "./chef"
 VARS = [
     "-d", "NAME", "beauconstrictor",
     "-d", "EMAIL", "beauconstrictor@tilde.team",
-    "-d", "ROOT", "/~/beauconstrictor",
+    "-d", "ROOT", "/~beauconstrictor",
 ]
 
 HOSTNAME = "tilde.team"
