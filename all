@@ -15,10 +15,10 @@ VARS = [
 
 HOSTNAME = "tilde.team"
 
-def run_chef(fmt: str, out: Path, src: Path):
+def run_chef(fmt: str, out: Path, src: Path, online_path: Path):
     out.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
-        [CHEF, *VARS, "-H", HOSTNAME, "-f", fmt, "-o", str(out), str(src)],
+        [CHEF, *VARS, "-H", HOSTNAME, "-O", str(online_path), "-f", fmt, "-o", str(out), str(src)],
         check=True
     )
 
@@ -62,9 +62,9 @@ def main():
 
         print(f"{path} -> {html_rel}")
 
-        run_chef("html", html_out, path)
-        run_chef("gemtext", gem_out, path)
-        run_chef("gophermap", gopher_out, path)
+        run_chef("html", html_out, path, rel)
+        run_chef("gemtext", gem_out, path, rel)
+        run_chef("gophermap", gopher_out, path, rel)
 
 
 if __name__ == "__main__":

@@ -23,6 +23,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("-d", "--define", nargs=2, action="append")
     parser.add_argument("-w", "--wrap", default=80, type=int)
     parser.add_argument("-H", "--hostname", required=True)
+    parser.add_argument("-O", "--online_path", required=True)
 
     return parser.parse_args()
 
@@ -112,7 +113,7 @@ def add_heading(output: list[str], l: str, border: str, prefix: str, width: int)
         output.append("i" + line)
     output.append("i" + border * llen)
 
-def add_gopher_link(output: list[str], l: str, width: int, hostname: str) -> None:
+def add_gopher_link(output: list[str], l: str, width: int, hostname: str, path: str) -> None:
     parts = l[3:].split(" ")
     if len(parts) == 0: return
     url  = parts[0]
@@ -129,13 +130,14 @@ def add_gopher_link(output: list[str], l: str, width: int, hostname: str) -> Non
     elif url.startswith("gemini://"):
         output.append("iTODO: implement gemini links from gopher")
     elif url.endswith(".gmi"):
-        selector = url[:-4]
+        selector = Path(url[:-4]).relative_to(path)
         for name_l in name:
             output.append(f"1{name_l}\t{selector}\t{hostname}\t70")
     # TODO: support .txt files
     else:
+        selector = Path(url).relative_to(path)
         for name_l in name:
-            output.append(f"9{name_l}\t{url}\t{hostname}\t70")
+            output.append(f"9{name_l}\t{selector}{hostname}\t70")
 
 def format_html(source: str, args: argparse.Namespace) -> str:
     with open(args.template, "r", encoding="utf-8") as f:
@@ -170,7 +172,7 @@ def format_gopher(source: str, args: argparse.Namespace) -> str:
             add_heading(output, l, ".", "### ", args.wrap)
 
         elif l.startswith("=> "):
-            add_gopher_link(output, l, args.wrap, args.hostname)
+            add_gopher_link(output, l, args.wrap, args.hostname, Path(args.online_path).parent)
 
         elif l == "":
             output.append("i")
