@@ -31,8 +31,6 @@ These are some of the larger projects that I have worked on recently. You can fi
 => projects/quadraserve.gmi Quadraserve - A 4-protocol web server that supports CGI-like scripts
 => projects/index.gmi And more...
 
-=> https://github.com/beauconstrictor My Github profile
-
 ## My gemlog
 
 => gemlog/index.gmi I might post things here, or maybe not. It's nice to have.

@@ -4,6 +4,8 @@ Here, you can find a complete list of my various projects. If you want to find o
 
 These repos aren't particularly up-to-date, but are guaranteed to contain stable code - don't worry about switching to a release branch after cloning one of these.
 
+=> https://github.com/beauconstrictor If you want my latest repos, or if you want to check out the READMEs without cloning them first, see my Github profile
+
 => /~beauconstrictor/git/csrpc.git CSRPC - A C/Shell synchronous RPC utility.
 => /~beauconstrictor/git/dotfiles.git Dotfiles - My personal dotfiles.
 => /~beauconstrictor/git/far.git far - A streaming file archiver.
