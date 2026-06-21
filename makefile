@@ -16,5 +16,6 @@ run: all
 	@python -m http.server -d "$(OUT)/html/"
 
 .PHONY: pubgem
-pubgem: all
+server: all
 	cp -a ~/projects/me/build/gemini/. ~/public_gemini
+	ln -s ~/public_git build/html/git/
