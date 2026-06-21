@@ -234,8 +234,9 @@ def main() -> None:
         case "gopher": output = format_gopher(source, args)
 
     mtime = datetime.fromtimestamp(os.path.getmtime(args.gemtext))
-    args.define.append(("MDATE", f"{mtime.day} {mtime.strftime('%B %Y')}"))
-    args.define.append(("MTIME", mtime.strftime(f"%H:%M")))
+    args.define.append(("MDATE",  f"{mtime.day} {mtime.strftime('%B %Y')}"))
+    args.define.append(("MTIME",  mtime.strftime(f"%H:%M")))
+    args.define.append(("MSTAMP", mtime.strftime(f"%Y-%m-%d")))
 
     for k,v in args.define:
         output = output.replace(f"$({k})", v)
