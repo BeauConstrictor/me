@@ -18,4 +18,4 @@ run: all
 .PHONY: pubgem
 server: all
 	cp -a ~/projects/me/build/gemini/. ~/public_gemini
-	ln -s ~/public_git build/html/git/
+	ln -s ~/public_git/ build/html/git
