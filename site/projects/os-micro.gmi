@@ -27,8 +27,8 @@ OS/Micro has a unique architecture that heavily leans on the extensibility and d
 
 Because of this, the OS will not run on any old computer, but Ozpex Micro-compatible computers specifically. This is a computer architecture that I created, inspired by the IBM PC de-facto standard, and the CP/M operating system. Where the Ozpex Micro stands out is in its simplicity, making development a breeze despite being forced to do so in Z80 assembly.
 
-=> ozpex-micro.gmi See my dedicated page for the Ozpex Micro if you are curious, or want to set one up to try out this OS.
 => https://github.com/beauconstrictor/os-micro Check out the Github repository for this project if you want to try it out.
+=> /~beauconstrictor/git/os-micro.git OS/M's git repository, if you want to try it out
 
 ## Inspiration
 

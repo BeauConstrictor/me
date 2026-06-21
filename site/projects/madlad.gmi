@@ -16,7 +16,7 @@ Madlad is an (unstable) fullscreen modal text editor that takes heavy inspiratio
 
 Madlad's main standout feature is it's modularity. All commands and plugins are implemented as shell scripts. Even when you type a colon command, your text is passed straight to the shell to execute. These commands are called with a modified path that provides access to all the Madlad-specific commands like w, q and so on.
 
-=> https://github.com/beauconstrictor/madlad Madlad on Github
+=> /~beauconstrictor/git/madlad.git MADLAD's git repository, if you want to try it out
 
 ## CSRPC
 

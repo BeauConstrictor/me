@@ -17,8 +17,8 @@ At its core, the Ozpex Micro is essentially a standard that emulators and mother
 
 If your confused, don't worry. It can be hard to understand what exactly the Ozpex family is. Hopefully this clears it up: 'Ozpex' is a designed architecture and software stack implemented in software in the modern day, not a physical hardware standard from the 70s/80s.
 
-=> https://github.com/beauconstrictor/ozpex-micro Check out the Github repository for this project if you want to try it out.
 => os-micro.gmi If you want to get some serious software running on the Micro, you can try to boot my custom operating system, OS/M.
+=> /~beauconstrictor/git/ozpex-micro.git Ozpex Micro's git repository, if you want to try it out
 
 ## Designing the spec
 

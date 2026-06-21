@@ -29,6 +29,7 @@ These are some of the larger projects that I have worked on recently. You can fi
 => projects/ozpex-micro.gmi Ozpex Micro - An 8-bit computer architecture designed for extensibility
 => projects/os-micro.gmi OS/Micro - A full operating system stack and programming language for the Ozpex Micro
 => projects/quadraserve.gmi Quadraserve - A 4-protocol web server that supports CGI-like scripts
+=> projects/index.gmi Git repos...
 
 => https://github.com/beauconstrictor My Github profile
 

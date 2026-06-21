@@ -22,8 +22,7 @@ Quadraserve supports:
 
 Quadraserve is primarily a static web server that serves files from a directory, much like Python's 'http.server'. However, you do have access to more interactive functionality, available from all 4 protocols (a major challenge in it's own right - I'm looking at you, Finger) through a system akin to CGI.
 
-=> https://github.com/beauconstrictor/Quadraserve Quadraserve on Github
-
+=> /~beauconstrictor/git/quadraserve Quadraserve's git repository if you want to try it out
 ## Modules
 
 Quadraserve's interactivity comes from a system of 'modules', which behave like API endpoints that send and receive strings of text (both optional). Pages can have buttons and forms of sorts in the form of links to modules, which are automatically recognised and prompt the user for input before calling the endpoint and displaying the result. If you're familiar with CGI scripts, modules aren't too different.
