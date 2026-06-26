@@ -79,8 +79,4 @@ As you can see, it really is a thin wrapper. These wrappers exist to hide the in
 
 ## The name
 
-There's not really much of a story behind the name 'Madlad'. It
-started of as 'Medled', meaning 'Line editor; modal editor' but that
-sounded weird so i just changed it to the common phrase 'Mad lad',
-which I suppose reflects the 'mad' nature of using shell scripts for
-everything, but you really shouldn't read too deep into it.
+There's not really much of a story behind the name 'Madlad'. It started of as 'Medled', meaning 'Line editor; modal editor' but that sounded weird so i just changed it to the common phrase 'Mad lad', which I suppose reflects the 'mad' nature of using shell scripts for everything, but you really shouldn't read too deep into it.
